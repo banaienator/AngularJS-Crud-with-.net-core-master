@@ -1,0 +1,25 @@
+[
+  {
+    "outputFileName": "wwwroot/cdn/bundle/tp.css",
+    "inputFiles": [
+      "pages/employee/employee.css",
+      "pages/manager/manager.css"
+    ]
+  },
+
+  {
+    "outputFileName": "wwwroot/cdn/bundle/tp.js",
+    "inputFiles": [
+      "app.js",
+      "pages/employee/employee.js",
+      "pages/manager/manager.js"
+    ],
+
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+
+    "sourceMap": false
+  }
+]

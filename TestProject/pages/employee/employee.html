@@ -1,0 +1,83 @@
+﻿<div ng-controller="employee_controller">
+    <div class="row" ng-show="employee || new_employee">
+        <div class="col-md-4">
+            <div class="card">
+                <form name="myForm" novalidate>
+
+                    <div class="form-group">
+                        <label>نام</label>
+                        <input type="text" class="form-control" placeholder="نام کامل" name="name" ng-model="employee.name" required ng-maxlength="20" />
+                        <span class="alert alert-danger" ng-show="myForm.name.$dirty && myForm.name.$invalid">
+                            <span ng-show="myForm.name.$error.required">نام کامل را وارد کنید</span>
+                            <span ng-show="myForm.name.$error.maxlength">طول آدرس حداکثر 20 کاراکتر می باشد</span>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>آدرس</label>
+                        <input type="text" class="form-control" placeholder="آدرس" name="address" ng-model="employee.address" required ng-maxlength="300" />
+                        <span class="alert alert-danger" ng-show="myForm.address.$dirty && myForm.address.$invalid">
+                            <span ng-show="myForm.address.$error.required">آدرس را وارد کنید</span>
+                            <span ng-show="myForm.address.$error.maxlength">طول آدرس حداکثر 300 کاراکتر می باشد</span>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>موبایل</label>
+                        <input type="text" class="form-control" placeholder="تلفن" name="telephone" ng-pattern="phoneNumbr" ng-model="employee.phone" required />
+                        <span class="alert alert-danger" ng-show="myForm.telephone.$dirty && myForm.telephone.$invalid">
+                            <span ng-show="myForm.telephone.$error.required">موبایل را وارد کنید</span>
+                            <span ng-show="myForm.telephone.$error.pattern">فرمت موبایل اشتباه است</span>
+                        </span>
+                    </div>
+
+                    <input type="submit" class="btn btn-primary" value="ذخیره" ng-click="save_employee()" ng-disabled="myForm.$invalid" />
+                    <input type="button" class="btn btn-dark" value="انصراف" ng-click="reset()" />
+
+                    <div class="alert alert-warning" ng-show="myForm.$invalid">
+                        فرم را بدرستی تکمیل نمائید
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row" ng-hide="employee || new_employee" >
+
+        <div class="col-md-10">
+            <input type="text" placeholder="جستجو" class="form-control" ng-model="search" />
+        </div>
+
+        <div class="col-md-2">
+            <a class="btn btn-success " ng-click="add_employee()">افزودن کارمند جدید</a>
+        </div>
+
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>نام</th>
+                        <th>آدرس</th>
+                        <th>تلفن</th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="employee in employees  | filter : search">
+                        <td>{{employee.name}}</td>
+                        <td>{{employee.address}}</td>
+                        <td>{{employee.phone}}</td>
+                        <td>
+                            <a class="btn btn-success btn-xs" ng-click="edit_employee(employee.id)">ویرایش</a>
+                            <input type="button" class="btn btn-danger" value="حذف" ng-click="delete_employee(employee.id)" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
